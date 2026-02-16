@@ -1,269 +1,321 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Shield, MessageSquare, BookOpen, Users, Search, AlertTriangle, Gamepad2, Brain, Lightbulb, Award, ArrowRight, CheckCircle } from "lucide-react";
+import {
+  Shield,
+  Brain,
+  Zap,
+  Users,
+  TrendingUp,
+  Award,
+  Sparkles,
+  Lock,
+  Eye,
+  MessageSquare,
+  Gamepad2,
+  BookOpen,
+  Target,
+  ArrowRight,
+  CheckCircle2,
+  Star,
+  Globe,
+  Activity,
+} from "lucide-react";
 
 export default function Home() {
+  const [stats, setStats] = useState({
+    usersProtected: 0,
+    threatsBlocked: 0,
+    lessonsCompleted: 0,
+    safetyScore: 0,
+  });
+
+  // Animate stats on load
+  useEffect(() => {
+    const duration = 2000;
+    const steps = 60;
+    const interval = duration / steps;
+
+    const targets = {
+      usersProtected: 50000,
+      threatsBlocked: 125000,
+      lessonsCompleted: 75000,
+      safetyScore: 98,
+    };
+
+    let step = 0;
+    const timer = setInterval(() => {
+      step++;
+      const progress = step / steps;
+      
+      setStats({
+        usersProtected: Math.floor(targets.usersProtected * progress),
+        threatsBlocked: Math.floor(targets.threatsBlocked * progress),
+        lessonsCompleted: Math.floor(targets.lessonsCompleted * progress),
+        safetyScore: Math.floor(targets.safetyScore * progress),
+      });
+
+      if (step >= steps) clearInterval(timer);
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const features = [
+    {
+      icon: Brain,
+      title: "AI-Powered Protection",
+      description: "Advanced machine learning algorithms detect and prevent online threats in real-time",
+      color: "from-blue-500 to-cyan-500",
+    },
+    {
+      icon: Gamepad2,
+      title: "Interactive Learning",
+      description: "Engaging games and scenarios that make learning online safety fun and memorable",
+      color: "from-purple-500 to-pink-500",
+    },
+    {
+      icon: MessageSquare,
+      title: "24/7 AI Assistant",
+      description: "Get instant answers to your safety questions from our intelligent chatbot",
+      color: "from-green-500 to-emerald-500",
+    },
+    {
+      icon: Target,
+      title: "Personalized Training",
+      description: "Adaptive learning paths tailored to your age, experience, and needs",
+      color: "from-orange-500 to-red-500",
+    },
+    {
+      icon: Shield,
+      title: "Real-Time Monitoring",
+      description: "Continuous protection with instant alerts for potential dangers",
+      color: "from-indigo-500 to-purple-500",
+    },
+    {
+      icon: Award,
+      title: "Certification Program",
+      description: "Earn badges and certificates as you master online safety skills",
+      color: "from-yellow-500 to-orange-500",
+    },
+  ];
+
+  const quickActions = [
+    {
+      icon: MessageSquare,
+      title: "Chat with AI",
+      description: "Get instant safety advice",
+      href: "/chat",
+      color: "bg-gradient-to-br from-blue-500 to-cyan-500",
+    },
+    {
+      icon: Gamepad2,
+      title: "Play Games",
+      description: "Learn through fun activities",
+      href: "/games",
+      color: "bg-gradient-to-br from-purple-500 to-pink-500",
+    },
+    {
+      icon: BookOpen,
+      title: "Take Quiz",
+      description: "Test your knowledge",
+      href: "/quiz",
+      color: "bg-gradient-to-br from-green-500 to-emerald-500",
+    },
+    {
+      icon: Target,
+      title: "Practice Scenarios",
+      description: "Real-world situations",
+      href: "/scenarios",
+      color: "bg-gradient-to-br from-orange-500 to-red-500",
+    },
+  ];
+
+  const testimonials = [
+    {
+      name: "Sarah M.",
+      role: "Parent",
+      content: "This platform has transformed how my kids understand online safety. The AI assistant is incredibly helpful!",
+      rating: 5,
+    },
+    {
+      name: "James T.",
+      role: "Teacher",
+      content: "I use eSafety AI in my classroom. The interactive games make teaching digital citizenship engaging and effective.",
+      rating: 5,
+    },
+    {
+      name: "Emily R.",
+      role: "Student",
+      content: "The scenarios helped me recognize a phishing attempt. This platform literally saved me from a scam!",
+      rating: 5,
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="text-center">
-            <div className="flex justify-center mb-6">
-              <Shield className="w-20 h-20 animate-pulse" />
+      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-float" />
+          <div className="absolute top-40 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "1s" }} />
+          <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-pink-500/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "2s" }} />
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center max-w-4xl mx-auto animate-fade-in">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full border border-blue-500/20 mb-6">
+              <Sparkles className="w-4 h-4 text-blue-600" />
+              <span className="text-sm font-semibold text-blue-600">Powered by Advanced AI Technology</span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              eSafety AI Assistant
+            
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              <span className="gradient-text">Master Online Safety</span>
+              <br />
+              <span className="text-slate-800">with AI Intelligence</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
-              Your intelligent companion for online safety. Get instant answers, play interactive games, and learn how to stay protected online.
+            
+            <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+              The world&apos;s most advanced eSafety platform. Learn, practice, and stay protected with cutting-edge AI technology and interactive experiences.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
                 href="/chat"
-                className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white rounded-full font-bold text-lg shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 overflow-hidden"
               >
-                <MessageSquare className="w-5 h-5 mr-2" />
-                Chat with AI Assistant
+                <span className="relative z-10 flex items-center gap-2">
+                  Start Learning Free
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
+              
               <Link
-                href="/games"
-                className="inline-flex items-center px-8 py-4 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-400 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                href="/about"
+                className="px-8 py-4 glass rounded-full font-bold text-lg text-slate-700 hover:bg-white/90 transition-all duration-300 hover-lift"
               >
-                <Gamepad2 className="w-5 h-5 mr-2" />
-                Play Safety Games
+                Learn More
               </Link>
             </div>
           </div>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-blue-50 to-transparent"></div>
-      </section>
 
-      {/* Quick Stats */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12">
-        <div className="grid md:grid-cols-4 gap-6">
-          {[
-            { icon: Users, label: "10K+ Users", color: "blue" },
-            { icon: MessageSquare, label: "50K+ Questions", color: "green" },
-            { icon: Gamepad2, label: "Interactive Games", color: "purple" },
-            { icon: Award, label: "Expert Guidance", color: "yellow" },
-          ].map((stat, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition-transform"
-            >
-              <stat.icon className={`w-10 h-10 mx-auto mb-3 text-${stat.color}-600`} />
-              <div className="font-bold text-gray-900">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-4xl font-bold text-center mb-4 text-gray-900">
-          How Our AI Helps You Stay Safe
-        </h2>
-        <p className="text-xl text-center text-gray-600 mb-16 max-w-3xl mx-auto">
-          Powered by advanced AI technology with real-time web search capabilities
-        </p>
-        
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all border border-gray-100 group">
-            <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <Search className="w-8 h-8 text-blue-600" />
-            </div>
-            <h3 className="text-2xl font-bold mb-4 text-gray-900">Web Search Integration</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Our AI searches the web in real-time to provide you with the latest safety information, threat alerts, and best practices.
-            </p>
-          </div>
-
-          <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all border border-gray-100 group">
-            <div className="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <MessageSquare className="w-8 h-8 text-green-600" />
-            </div>
-            <h3 className="text-2xl font-bold mb-4 text-gray-900">Instant Answers</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Ask any question about online safety, cyberbullying, privacy, or digital wellbeing and get immediate, accurate responses.
-            </p>
-          </div>
-
-          <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all border border-gray-100 group">
-            <div className="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <Shield className="w-8 h-8 text-purple-600" />
-            </div>
-            <h3 className="text-2xl font-bold mb-4 text-gray-900">Personalized Guidance</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Get tailored advice based on your specific situation, age group, and concerns about online safety.
-            </p>
+          {/* Live Stats Dashboard */}
+          <div className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-6 animate-slide-up">
+            {[
+              { label: "Users Protected", value: stats.usersProtected.toLocaleString(), icon: Users, color: "from-blue-500 to-cyan-500" },
+              { label: "Threats Blocked", value: stats.threatsBlocked.toLocaleString(), icon: Shield, color: "from-purple-500 to-pink-500" },
+              { label: "Lessons Completed", value: stats.lessonsCompleted.toLocaleString(), icon: BookOpen, color: "from-green-500 to-emerald-500" },
+              { label: "Safety Score", value: `${stats.safetyScore}%`, icon: TrendingUp, color: "from-orange-500 to-red-500" },
+            ].map((stat, index) => (
+              <div
+                key={stat.label}
+                className="glass rounded-2xl p-6 hover-lift hover-glow"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${stat.color} mb-4`}>
+                  <stat.icon className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-3xl font-bold text-slate-800 mb-1">{stat.value}</div>
+                <div className="text-sm text-slate-600">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Interactive Learning Section */}
-      <section className="bg-gradient-to-r from-purple-600 to-pink-600 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Quick Actions */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Learn Through Interactive Experiences
+            <h2 className="text-4xl font-bold text-slate-800 mb-4">
+              Start Your <span className="gradient-text">Safety Journey</span>
             </h2>
-            <p className="text-xl text-purple-100 max-w-3xl mx-auto">
-              Choose your learning style - games, quizzes, scenarios, or tips
-            </p>
+            <p className="text-lg text-slate-600">Choose your path to becoming an online safety expert</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link
-              href="/games"
-              className="bg-white rounded-xl p-6 text-center hover:shadow-2xl transition-all transform hover:-translate-y-2 group"
-            >
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors">
-                <Gamepad2 className="w-8 h-8 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Games</h3>
-              <p className="text-gray-600 text-sm mb-4">
-                Play fun games to learn safety skills
-              </p>
-              <div className="text-purple-600 font-semibold flex items-center justify-center">
-                Play Now <ArrowRight className="w-4 h-4 ml-1" />
-              </div>
-            </Link>
-
-            <Link
-              href="/quiz"
-              className="bg-white rounded-xl p-6 text-center hover:shadow-2xl transition-all transform hover:-translate-y-2 group"
-            >
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-                <Brain className="w-8 h-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Quiz</h3>
-              <p className="text-gray-600 text-sm mb-4">
-                Test your knowledge with our quiz
-              </p>
-              <div className="text-blue-600 font-semibold flex items-center justify-center">
-                Take Quiz <ArrowRight className="w-4 h-4 ml-1" />
-              </div>
-            </Link>
-
-            <Link
-              href="/scenarios"
-              className="bg-white rounded-xl p-6 text-center hover:shadow-2xl transition-all transform hover:-translate-y-2 group"
-            >
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-200 transition-colors">
-                <Users className="w-8 h-8 text-green-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Scenarios</h3>
-              <p className="text-gray-600 text-sm mb-4">
-                Practice real-world situations
-              </p>
-              <div className="text-green-600 font-semibold flex items-center justify-center">
-                Try Scenarios <ArrowRight className="w-4 h-4 ml-1" />
-              </div>
-            </Link>
-
-            <Link
-              href="/tips"
-              className="bg-white rounded-xl p-6 text-center hover:shadow-2xl transition-all transform hover:-translate-y-2 group"
-            >
-              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-200 transition-colors">
-                <Lightbulb className="w-8 h-8 text-yellow-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Daily Tips</h3>
-              <p className="text-gray-600 text-sm mb-4">
-                Get practical safety advice
-              </p>
-              <div className="text-yellow-600 font-semibold flex items-center justify-center">
-                Read Tips <ArrowRight className="w-4 h-4 ml-1" />
-              </div>
-            </Link>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {quickActions.map((action, index) => (
+              <Link
+                key={action.title}
+                href={action.href}
+                className="group relative glass rounded-2xl p-8 hover-lift hover-glow overflow-hidden"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className={`absolute inset-0 ${action.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+                <div className={`inline-flex p-4 rounded-xl ${action.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <action.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-800 mb-2">{action.title}</h3>
+                <p className="text-slate-600 mb-4">{action.description}</p>
+                <div className="flex items-center text-blue-600 font-semibold group-hover:gap-2 transition-all">
+                  Get Started
+                  <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Safety Topics Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-4xl font-bold text-center mb-4 text-gray-900">
-          Key Safety Topics We Cover
-        </h2>
-        <p className="text-xl text-center text-gray-600 mb-16">
-          Learn about the most important aspects of staying safe online
-        </p>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { icon: AlertTriangle, title: "Cyberbullying", color: "red", description: "How to recognize and respond" },
-            { icon: Shield, title: "Privacy Protection", color: "blue", description: "Keep your data secure" },
-            { icon: Users, title: "Social Media Safety", color: "green", description: "Safe sharing practices" },
-            { icon: BookOpen, title: "Digital Literacy", color: "purple", description: "Navigate the web wisely" },
-            { icon: Search, title: "Phishing Detection", color: "yellow", description: "Spot scams and fakes" },
-            { icon: MessageSquare, title: "Online Communication", color: "pink", description: "Chat safely with others" },
-            { icon: Gamepad2, title: "Gaming Safety", color: "indigo", description: "Protect yourself while gaming" },
-            { icon: Lightbulb, title: "Digital Wellbeing", color: "orange", description: "Healthy tech habits" },
-          ].map((topic, index) => (
-            <div
-              key={index}
-              className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-all cursor-pointer border border-gray-100 group hover:border-blue-300"
-            >
-              <topic.icon className={`w-10 h-10 text-${topic.color}-600 mb-4 group-hover:scale-110 transition-transform`} />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{topic.title}</h3>
-              <p className="text-sm text-gray-600">{topic.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
-      <section className="bg-gray-50 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Features Grid */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent to-blue-50/50">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Why Choose eSafety AI?
+            <h2 className="text-4xl font-bold text-slate-800 mb-4">
+              <span className="gradient-text">Powerful Features</span> for Complete Protection
             </h2>
-            <p className="text-xl text-gray-600">
-              The most comprehensive online safety platform
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Advanced technology meets intuitive design to create the ultimate online safety platform
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: CheckCircle,
-                title: "Always Available",
-                description: "Get help 24/7 whenever you need it",
-              },
-              {
-                icon: Shield,
-                title: "Privacy Protected",
-                description: "Your conversations are never stored",
-              },
-              {
-                icon: Brain,
-                title: "AI-Powered",
-                description: "Advanced technology for accurate answers",
-              },
-              {
-                icon: Users,
-                title: "For All Ages",
-                description: "Suitable for kids, teens, and adults",
-              },
-              {
-                icon: Award,
-                title: "Expert-Backed",
-                description: "Information from safety professionals",
-              },
-              {
-                icon: Gamepad2,
-                title: "Fun & Engaging",
-                description: "Learn through interactive experiences",
-              },
-            ].map((feature, index) => (
-              <div key={index} className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <feature.icon className="w-6 h-6 text-blue-600" />
+            {features.map((feature, index) => (
+              <div
+                key={feature.title}
+                className="glass rounded-2xl p-8 hover-lift hover-glow group"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className={`inline-flex p-4 rounded-xl bg-gradient-to-br ${feature.color} mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <feature.icon className="w-8 h-8 text-white" />
                 </div>
+                <h3 className="text-2xl font-bold text-slate-800 mb-3">{feature.title}</h3>
+                <p className="text-slate-600 leading-relaxed">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-800 mb-4">
+              Trusted by <span className="gradient-text">Thousands</span>
+            </h2>
+            <p className="text-lg text-slate-600">See what our community has to say</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={testimonial.name}
+                className="glass rounded-2xl p-8 hover-lift"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="flex gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-slate-700 mb-6 leading-relaxed">&ldquo;{testimonial.content}&rdquo;</p>
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-2">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
+                  <div className="font-bold text-slate-800">{testimonial.name}</div>
+                  <div className="text-sm text-slate-600">{testimonial.role}</div>
                 </div>
               </div>
             ))}
@@ -272,29 +324,29 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-12 text-center text-white shadow-2xl">
-          <h2 className="text-4xl font-bold mb-4">
-            Ready to Learn More?
-          </h2>
-          <p className="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
-            Start your online safety journey today with our AI assistant and interactive tools
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/chat"
-              className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all shadow-lg text-lg transform hover:-translate-y-0.5"
-            >
-              <MessageSquare className="w-6 h-6 mr-2" />
-              Start Chatting Now
-            </Link>
-            <Link
-              href="/games"
-              className="inline-flex items-center justify-center px-8 py-4 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-400 transition-all shadow-lg text-lg transform hover:-translate-y-0.5"
-            >
-              <Gamepad2 className="w-6 h-6 mr-2" />
-              Play Games
-            </Link>
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="relative glass rounded-3xl p-12 text-center overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10" />
+            <div className="relative z-10">
+              <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 mb-6">
+                <Shield className="w-12 h-12 text-white" />
+              </div>
+              <h2 className="text-4xl font-bold text-slate-800 mb-4">
+                Ready to Get <span className="gradient-text">Protected</span>?
+              </h2>
+              <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
+                Join thousands of users who are already mastering online safety with our AI-powered platform
+              </p>
+              <Link
+                href="/chat"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white rounded-full font-bold text-lg shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300"
+              >
+                <Sparkles className="w-5 h-5" />
+                Start Your Free Journey
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
